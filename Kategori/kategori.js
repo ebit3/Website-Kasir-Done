@@ -18,7 +18,7 @@ const database = getDatabase(app);
 const categoryList = document.getElementById('categoryList');
 const categoriesRef = ref(database, 'categories');
 
-const ITEMS_PER_PAGE = 5; // Jumlah item per halaman
+const ITEMS_PER_PAGE = 10; // Jumlah item per halaman
 let currentPage = 1; // Halaman saat ini
 let categories = []; // Array untuk menyimpan kategori
 

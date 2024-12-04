@@ -13,6 +13,13 @@
         <title>Kasir Muji Perkasa</title>
         <link href="../assets/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+
+        <style>
+            #detailProductDescription {
+                text-align: justify;
+            }
+        </style>
     </head>
 
     <body class="sb-nav-fixed">
@@ -33,7 +40,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" href="../transaksi/transaksi.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Jual Beli
                             </a>
@@ -46,19 +53,19 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Produk
                             </a>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="../Pelanggan/home.html">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Pelanggan
                             </a>
                             <div class="sb-sidenav-menu-heading">Data Transaki</div>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Transaksi
                             </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <a class="nav-link" href="tables.html">
+                        <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon">
                                 <i class="fa-solid fa-right-to-bracket"></i>
                             </div>
@@ -70,6 +77,9 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
+
+                        <div id="notificationArea" class="my-5"></div> <!-- Area untuk menampilkan notifikasi -->
+
                         <h1 class="mt-4 mb-4">Produk</h1>
 
                         <!-- Tombol Tambah Produk -->
@@ -79,7 +89,7 @@
 
 
                         <!-- Daftar Produk -->
-                        <div class="row" id="categoryList">
+                        <div class="row" id="productList">
 
                             <!-- Contoh card Produk -->
                         </div>
@@ -100,27 +110,60 @@
                     </div>
 
                     <!-- Modal Tambah/Edit Produk -->
-                    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel"
+                    <div class="modal fade modal-lg" id="productModal" tabindex="-1" aria-labelledby="productModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="categoryModalLabel"></h5>
+                                    <h5 class="modal-title" id="productModalLabel"></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <form id="categoryForm">
+                                <form id="productForm">
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                            <label for="categoryName" class="form-label">Nama Produk</label>
-                                            <input type="text" id="categoryName" class="form-control" required />
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="categoryStatus" class="form-label">Status</label>
-                                            <select id="categoryStatus" class="form-select">
-                                                <option value="Aktif">Aktif</option>
-                                                <option value="Tidak Aktif">Tidak Aktif</option>
-                                            </select>
+                                        <div class="row">
+                                            <!-- Nama Produk -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="productName" class="form-label">Nama Produk</label>
+                                                    <input type="text" id="productName" class="form-control" required />
+                                                </div>
+                                            </div>
+                                            <!-- Kategori Produk -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="productCategories" class="form-label">Kategori
+                                                        Produk</label>
+                                                    <select id="productCategories" class="form-select">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <!-- Harga Produk -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="productPrice" class="form-label">Harga Produk</label>
+                                                    <input type="number" id="productPrice" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                            <!-- Stok Produk -->
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="productStock" class="form-label">Stok Produk</label>
+                                                    <input type="number" id="productStock" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                            <!-- Deskripsi Produk -->
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label for="productDescription" class="form-label">Deskripsi
+                                                        Produk</label>
+                                                    <textarea id="productDescription" class="form-control"
+                                                        rows="3"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -137,18 +180,36 @@
                     <!-- Modal Detail Produk -->
                     <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel"
                         aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header bg-primary text-white">
                                     <h5 class="modal-title" id="detailModalLabel">Detail Produk</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <p><strong>Nama Produk:</strong> <span id="modalCategoryName"></span></p>
-                                    <p><strong>Status:</strong> <span id="modalCategoryStatus" class="badge"></span></p>
+                                    <!-- Detail produk -->
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <!-- Gambar Produk -->
+                                            <img src="https://via.placeholder.com/300x300" alt="Gambar Produk"
+                                                class="img-fluid rounded shadow-sm">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <!-- Informasi Produk -->
+                                            <h4 class="fw-bold mb-3" id="detailProductName">Nama Produk</h4>
+                                            <p class="text-muted mb-1"><strong>Kategori:</strong> <span
+                                                    id="detailProductCategory">Kategori</span></p>
+                                            <p class="text-muted mb-1"><strong>Harga:</strong> <span
+                                                    id="detailProductPrice">Rp 0</span></p>
+                                            <p class="text-muted mb-3"><strong>Stok:</strong> <span
+                                                    id="detailProductStock">0</span></p>
+                                            <p id="detailProductDescription">Deskripsi produk akan ditampilkan di sini.
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
+                                <div class="modal-footer justify-content-between">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Tutup</button>
                                 </div>

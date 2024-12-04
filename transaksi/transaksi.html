@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Deskripsi website Anda" />
+        <meta name="author" content="Ebit Gunawan, Arya MD" />
+        <meta name="keywords"
+            content="POS system, aplikasi kasir, Node.js, Firebase, cetak struk, Ebit Gunawan, Arya MD" />
+        <meta name="language" content="id" />
+        <title>Kasir Muji Perkasa</title>
+        <link href="../assets/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+        <style>
+            /* Styling tambahan untuk card produk */
+            .card {
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: transform 0.2s, box-shadow 0.2s;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .card-title {
+                font-weight: bold;
+                font-size: 1.25rem;
+                color: #333;
+            }
+
+            .card-text {
+                font-size: 1rem;
+                color: #666;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                border: none;
+                border-radius: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .price-icon {
+                color: #28a745;
+                margin-right: 0.5rem;
+            }
+        </style>
+    </head>
+
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Kasir</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                    class="fas fa-bars"></i></button>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="../index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Dashboard
+                            </a>
+                            <a class="nav-link" href="transaksi.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Jual Beli
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Data Master</div>
+                            <a class="nav-link" href="../Kategori/home.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Kategori
+                            </a>
+                            <a class="nav-link" href="../Produk/home.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Produk
+                            </a>
+                            <a class="nav-link" href="../Pelanggan/home.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Pelanggan
+                            </a>
+                            <div class="sb-sidenav-menu-heading">Data Transaki</div>
+                            <a class="nav-link" href="#">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Transaksi
+                            </a>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon">
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </div>
+                            Keluar
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <!-- Header -->
+                        <h1 class="mt-4 mb-4">Transaksi</h1>
+
+                        <!-- Kontainer Utama -->
+                        <div class="row">
+                            <!-- Daftar Produk -->
+                            <div class="col-md-8">
+
+                                <h4 class="mb-3">Daftar Produk</h4>
+                                <div class="row" id="product-list">
+                                    <!-- Item Produk -->
+
+                                    <!-- Tambahkan produk lainnya di sini -->
+                                </div>
+                            </div>
+
+                            <!-- Keranjang Belanja -->
+                            <div class="col-md-4">
+                                <h4 class="mb-3"><i class="fas fa-shopping-cart"></i> Keranjang Belanja</h4>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Informasi Transaksi -->
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="fas fa-file-invoice"></i> Kode Invoice:</span>
+                                                <strong>#INV12345</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="fas fa-calendar-alt"></i> Tanggal:</span>
+                                                <strong>04 Desember 2024</strong>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <span><i class="fas fa-user"></i> Nama Kasir:</span>
+                                                <strong>John Doe</strong>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                        <!-- Item di Keranjang -->
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div>
+                                                <span class="fw-bold">Produk A</span>
+                                                <div class="small text-muted">Rp 25.000 x 2</div>
+                                            </div>
+                                            <span>Rp 50.000</span>
+                                            <div>
+                                                <button class="btn btn-sm btn-secondary">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-secondary">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr>
+
+                                        <!-- Pilihan Member atau Non-Member -->
+                                        <div class="mb-3">
+                                            <label for="customerType" class="form-label"><i class="fas fa-user-tag"></i>
+                                                Jenis Pelanggan</label>
+                                            <select class="form-select" id="customerType">
+                                                <option value="non-member">Non-Member</option>
+                                                <option value="member">Member</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Form Pencarian Member (Tersembunyi jika Non-Member) -->
+                                        <div id="memberForm" class="mb-3" style="display: none;">
+                                            <label for="customerSearch" class="form-label">
+                                                <i class="fas fa-search"></i> Cari Data Pelanggan
+                                            </label>
+                                            <input type="text" class="form-control" id="customerSearch"
+                                                placeholder="Masukkan nama atau ID pelanggan" />
+                                            <button class="btn btn-primary mt-2 w-100"
+                                                onclick="searchCustomer()">Cari</button>
+                                        </div>
+
+                                        <hr>
+
+                                        <!-- Total Harga -->
+                                        <div class="d-flex justify-content-between">
+                                            <strong><i class="fas fa-calculator"></i> Total:</strong>
+                                            <strong>Rp 100.000</strong>
+                                        </div>
+                                        <hr>
+
+                                        <!-- Tombol Aksi -->
+                                        <button class="btn btn-success w-100 mb-2">
+                                            <i class="fas fa-check-circle"></i> Bayar
+                                        </button>
+                                        <button class="btn btn-danger w-100">
+                                            <i class="fas fa-trash-alt"></i> Hapus Semua
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </main>
+
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Muji Perkasa Kasir 2024</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('customerType').addEventListener('change', function () {
+                const customerType = this.value;
+                const memberForm = document.getElementById('memberForm');
+
+                if (customerType === 'member') {
+                    memberForm.style.display = 'block';
+                } else {
+                    memberForm.style.display = 'none';
+                }
+            });
+
+            function searchCustomer() {
+                const customerSearch = document.getElementById('customerSearch').value;
+                // Lakukan pencarian data pelanggan di sini (misalnya, menggunakan API atau database)
+                alert('Mencari pelanggan: ' + customerSearch);
+            }
+        </script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            crossorigin="anonymous"></script>
+        <script src="../assets/js/scripts.js"></script>
+        <script type="module" src="transaksi.js"></script>
+    </body>
+
+</html>
